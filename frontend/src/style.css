@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-pastel-pink: #FFB7C5;
+  --color-pastel-blue: #B8E0FF;
+  --color-pastel-yellow: #FFF3B0;
+  --color-pastel-green: #C8F0C8;
+  --color-pastel-purple: #E8D5FF;
+  --color-pastel-peach: #FFD4B8;
+  --color-cream: #FFF9F0;
+  --color-grid-line: #F0E8E0;
+  --color-window-pink: #FFB7C5;
+  --color-window-blue: #B8E0FF;
+  --color-window-yellow: #FFE566;
+  --color-dark: #3D2B3D;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-cute: 'Nunito', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-cute);
+  background-color: var(--color-cream);
+}
+
+.grid-bg {
+  background-color: #FFF5EE;
+  background-image:
+    linear-gradient(#F5E6D8 1px, transparent 1px),
+    linear-gradient(90deg, #F5E6D8 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.grid-bg-blue {
+  background-color: #F0F8FF;
+  background-image:
+    linear-gradient(#D8EEFF 1px, transparent 1px),
+    linear-gradient(90deg, #D8EEFF 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.pixel-font {
+  font-family: var(--font-pixel);
+}
+
+.window-shadow {
+  box-shadow: 4px 4px 0px #3D2B3D;
+}
+
+.btn-shadow {
+  box-shadow: 3px 3px 0px #3D2B3D;
+}
+
+.sticker-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.sticker-float-slow {
+  animation: float 4.5s ease-in-out infinite;
+}
+
+.sticker-float-fast {
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--rotate, 0deg)); }
+  50% { transform: translateY(-8px) rotate(var(--rotate, 0deg)); }
+}
+
+.loading-bar {
+  background: repeating-linear-gradient(
+    90deg,
+    #FFB7C5 0px,
+    #FFB7C5 18px,
+    #FF8FAB 18px,
+    #FF8FAB 22px
+  );
+  animation: loadingMove 1s linear infinite;
+}
+
+@keyframes loadingMove {
+  from { background-position: 0 0; }
+  to { background-position: 22px 0; }
+}
+
+.chaos-track::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FFB7C5;
+  border: 2px solid #3D2B3D;
+  cursor: pointer;
+}
+
+.chaos-track::-webkit-slider-runnable-track {
+  height: 8px;
+  background: #FFF0F5;
+  border: 2px solid #3D2B3D;
+  border-radius: 4px;
+}

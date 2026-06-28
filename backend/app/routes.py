@@ -14,15 +14,12 @@ from app.image_processor import (
     image_to_array
 )
 
-from app.color_detector import (
-    build_color_grid
-)
-
 from app.emoji_mapper import (
     build_emoji_grid
 )
 
 from app.themes import THEMES
+from ml.segmentor import segment_image
 
 router = APIRouter()
 
@@ -49,11 +46,8 @@ async def generate(
     if not image.content_type.startswith("image/"):
 
         raise HTTPException(
-
             status_code=400,
-
             detail="Only image files are allowed."
-
         )
 
     # -----------------------------
@@ -65,11 +59,8 @@ async def generate(
     if theme not in THEMES:
 
         raise HTTPException(
-
             status_code=400,
-
             detail=f"Theme '{theme}' not found."
-
         )
 
     # -----------------------------
@@ -79,11 +70,8 @@ async def generate(
     if resolution < 20 or resolution > 100:
 
         raise HTTPException(
-
             status_code=400,
-
             detail="Resolution must be between 20 and 100."
-
         )
 
     # -----------------------------
@@ -93,41 +81,39 @@ async def generate(
     if chaos < 0 or chaos > 1:
 
         raise HTTPException(
-
             status_code=400,
-
             detail="Chaos must be between 0 and 1."
-
         )
 
     # -----------------------------
-    # Process Image
+    # Process image
     # -----------------------------
 
     image_obj = load_image(image.file)
 
-    resized = resize_image(
-        image_obj,
-        resolution
-    )
+    resized = resize_image(image_obj, resolution)
 
     pixels = image_to_array(resized)
 
-    color_grid = build_color_grid(
-        pixels
-    )
+    # -----------------------------
+    # Segment image (CNN + fallback)
+    # -----------------------------
+
+    segment_grid = segment_image(resized, pixels)
+
+    # -----------------------------
+    # Build emoji grid
+    # -----------------------------
 
     emoji_grid = build_emoji_grid(
-        color_grid,
+        segment_grid,
         theme,
         chaos
     )
 
     end = time.time()
 
-    print(
-        f"Processing Time: {end-start:.4f} seconds"
-    )
+    print(f"Processing Time: {end-start:.4f} seconds")
 
     return {
 

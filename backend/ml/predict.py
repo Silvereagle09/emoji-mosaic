@@ -42,6 +42,9 @@ def predict_image(image):
 
     image_np = np.array(image.convert("RGB"))
     H, W, _ = image_np.shape
+    
+    if H < PATCH_SIZE or W < PATCH_SIZE:
+        return [], []
 
     label_grid = []
     confidence_grid = []

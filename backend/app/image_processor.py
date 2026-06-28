@@ -21,7 +21,7 @@ def resize_image(image, resolution):
     width, height = image.size
 
     # Clamp resolution
-    resolution = max(20, min(100, resolution))
+    resolution = max(40, min(100, resolution))
 
     aspect_ratio = width / height
 
