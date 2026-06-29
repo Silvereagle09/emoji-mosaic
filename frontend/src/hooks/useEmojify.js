@@ -24,12 +24,12 @@ export function useEmojify() {
 
     try {
       const formData = new FormData()
-      formData.append('file', file)
+      formData.append('image', file)
       formData.append('theme', theme)
       formData.append('resolution', resolution)
-      formData.append('chaos', chaos)
+      formData.append('chaos', chaos/100)
 
-      const res = await fetch(`${API_BASE}/emojify`, {
+      const res = await fetch(`${API_BASE}/generate`, {
         method: 'POST',
         body: formData,
       })
