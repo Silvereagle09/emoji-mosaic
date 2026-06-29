@@ -1,6 +1,3 @@
-// App.jsx
-// Root component — layout, tab navigation, state wiring
-
 import { useState } from 'react'
 import FloatingStickers from './components/FloatingStickers.jsx'
 import RetroWindow from './components/RetroWindow.jsx'
@@ -14,8 +11,8 @@ import PolaroidCollage from './components/PolaroidCollage.jsx'
 import { useEmojify } from './hooks/useEmojify.js'
 
 const TABS = [
-  { id: 'emojify', label: 'EMOJIFY', emoji: '✨' },
-  { id: 'collage', label: 'COLLAGE', emoji: '🎀' },
+  { id: 'emojify', label: 'EMOSAIC' },
+  { id: 'collage', label: 'COLLAGE' },
 ]
 
 const THEME_BG = {
@@ -99,15 +96,12 @@ export default function App() {
         {/* Header */}
         <div className="text-center flex flex-col items-center gap-2">
           <div className="flex items-center gap-3">
-            {/* Replace with <img src="/cats/logo-cat.png" className="w-10 h-10" /> */}
-            <span className="text-4xl sticker-float">🐱</span>
             <h1 className="pixel-font text-xl leading-none" style={{ color: titleColor }}>
-              EMOJIFY
+              EMOSAIC
             </h1>
-            <span className="text-4xl sticker-float-slow" style={{ animationDelay: '0.5s' }}>✨</span>
           </div>
           <p className="text-sm font-semibold" style={{ color: subtitleColor }}>
-            turn your photos into cute emoji mosaics
+            Turn your photos into cute emoji mosaics
           </p>
         </div>
 
@@ -124,7 +118,7 @@ export default function App() {
                 boxShadow: tab === t.id ? '2px 2px 0px #3D2B3D' : 'none',
               }}
             >
-              <span className="text-sm">{t.emoji}</span> {t.label}
+              {t.label}
             </button>
           ))}
         </div>
@@ -179,10 +173,10 @@ export default function App() {
                   min={10}
                   max={80}
                   onChange={setResolution}
-                  leftEmoji="🔲"
-                  rightEmoji="🔳"
+                  leftImg="/sliders/chunky-cat.png" 
+                  rightImg="/sliders/detail-cat.png"
                   leftLabel="chunky"
-                  rightLabel="detailed"
+                  rightLabel="detail"
                   color="#4FACFE"
                 />
                 <SliderControl
@@ -191,10 +185,10 @@ export default function App() {
                   min={0}
                   max={100}
                   onChange={setChaos}
-                  leftEmoji="😌"
-                  rightEmoji="🤪"
-                  leftLabel="accurate"
-                  rightLabel="chaotic"
+                  leftImg="/sliders/calm-cat.png" 
+                  rightImg="/sliders/chaotic-cat.png"
+                  leftLabel="calm"
+                  rightLabel="chaos"
                   color="#FF8FAB"
                 />
               </div>

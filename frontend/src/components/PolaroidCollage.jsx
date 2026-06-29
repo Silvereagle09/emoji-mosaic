@@ -23,7 +23,7 @@ export default function PolaroidCollage({ photos, onRemove }) {
     return (
       <div className="flex flex-col items-center gap-3 py-10 text-center">
         {/* Dummy placeholder - replace with actual cat image */}
-        <span className="text-5xl sticker-float">🖼️</span>
+        <img src="disappointed.png" className="w-30 h-30"/>
         <p className="pixel-font text-[8px] text-[#C0A0A0] leading-5">
           NO PHOTOS YET!<br />EMOJIFY SOME FIRST
         </p>

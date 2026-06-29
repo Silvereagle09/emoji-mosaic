@@ -18,7 +18,7 @@ export default function WebcamCapture({ onCapture, onClose }) {
         setReady(true)
       }
     }).catch(() => {
-      alert('Camera access denied 🙀')
+      alert('Camera access denied')
       onClose()
     })
 
