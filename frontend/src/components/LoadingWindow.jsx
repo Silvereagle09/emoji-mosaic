@@ -4,9 +4,11 @@
 const LOADING_MESSAGES = [
   'sprinkling emojis...',
   'petting cats...',
-  'adding sparkles...',
-  'making it cute...',
-  'almost done ✨',
+  'cat refuses to get off the keyboard...',
+  'warming up purr engine...',
+  'one meowment, please...',
+  'unboxing extra cuteness...',
+  'almost done',
 ]
 
 export default function LoadingWindow({ progress = 0 }) {
@@ -28,9 +30,8 @@ export default function LoadingWindow({ progress = 0 }) {
 
         {/* Content */}
         <div className="p-5 flex flex-col gap-4 items-center">
-          {/* Dummy loading cat - replace with actual cat image */}
-          <div className="w-16 h-16 rounded-xl bg-[#FFF0F5] border-2 border-[#FFB7C5] flex items-center justify-center">
-            <span className="text-3xl sticker-float-fast">🐱</span>
+          <div className="flex items-center justify-center">
+            <img src="loading-cat.png" className="w-40 h-auto"/>
           </div>
 
           <p className="pixel-font text-[8px] text-[#3D2B3D] text-center leading-5">{message}</p>

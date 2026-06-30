@@ -202,7 +202,7 @@ export default function App() {
                 className="flex-1 py-3 rounded-2xl border-2 border-[#3D2B3D] bg-[#FFB7C5] pixel-font text-[9px] text-[#3D2B3D] cursor-pointer disabled:opacity-40 transition-all hover:translate-y-[-2px]"
                 style={{ boxShadow: '4px 4px 0px #3D2B3D' }}
               >
-                ✨ EMOJIFY!
+                EMOJIFY!
               </button>
               <button
                 onClick={handleDemo}

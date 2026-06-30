@@ -1,6 +1,3 @@
-// EmojiCanvas.jsx
-// Renders the emoji mosaic grid returned from backend onto an HTML canvas
-
 import { useEffect, useRef } from 'react'
 
 const EMOJI_SIZE = 14 // px per emoji tile
@@ -53,14 +50,14 @@ export default function EmojiCanvas({ grid, width, height }) {
           className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-[#3D2B3D] bg-[#FFB7C5] pixel-font text-[8px] text-[#3D2B3D] cursor-pointer transition-all hover:translate-y-[-2px]"
           style={{ boxShadow: '3px 3px 0px #3D2B3D' }}
         >
-          <span>💾</span> SAVE PNG
+          SAVE PNG
         </button>
 
         <button
           className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-[#3D2B3D] bg-[#B8E0FF] pixel-font text-[8px] text-[#3D2B3D] cursor-pointer transition-all hover:translate-y-[-2px]"
           style={{ boxShadow: '3px 3px 0px #3D2B3D' }}
         >
-          <span>🎀</span> ADD TO COLLAGE
+          ADD TO COLLAGE
         </button>
       </div>
     </div>
