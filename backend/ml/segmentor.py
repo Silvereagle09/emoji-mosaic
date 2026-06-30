@@ -1,29 +1,37 @@
+import numpy as np
+from PIL import Image
 from ml.predict import predict_image, CONFIDENCE_THRESHOLD
 from app.color_detector import get_color_group
+
+CNN_MIN_SIZE = 480  
 
 
 def segment_image(image, pixels):
     """
-    Takes:
-        image  — PIL image (resized)
-        pixels — numpy array of same image (H x W x 3)
-
-    Returns:
-        segment_grid — 2D list, each cell is either:
-                       a segment label ("hair", "skin"...)
-                       or a color label ("red", "blue"...)
-                       depending on CNN confidence
+    Returns a fine-grained segment_grid at the SAME resolution as `pixels`.
     """
 
-    label_grid, confidence_grid = predict_image(image)
-    
-    if not label_grid or not label_grid[0]:
-        from app.color_detector import build_color_grid
-        color_grid = build_color_grid(pixels)
-        return [[("color", color) for color in row] for row in color_grid]
+    H, W, _ = pixels.shape
 
-    H = len(label_grid)
-    W = len(label_grid[0])
+    # ── 1. Run CNN on a separately upscaled copy for finer patch coverage ──
+    cnn_image = image
+    if image.width < CNN_MIN_SIZE or image.height < CNN_MIN_SIZE:
+        scale = CNN_MIN_SIZE / min(image.width, image.height)
+        new_w = int(image.width * scale)
+        new_h = int(image.height * scale)
+        cnn_image = image.resize((new_w, new_h), Image.LANCZOS)
+
+    label_grid, confidence_grid = predict_image(cnn_image)
+
+    use_cnn = bool(label_grid and label_grid[0])
+
+    if use_cnn:
+        coarse_H = len(label_grid)
+        coarse_W = len(label_grid[0])
+
+        # scale factors to map fine pixel -> coarse CNN patch
+        scale_y = coarse_H / H
+        scale_x = coarse_W / W
 
     segment_grid = []
 
@@ -31,25 +39,22 @@ def segment_image(image, pixels):
         row = []
         for x in range(W):
 
-            label = label_grid[y][x]
-            confidence = confidence_grid[y][x]
+            pixel = pixels[y, x]
+            color = get_color_group(pixel)
 
-            if confidence >= CONFIDENCE_THRESHOLD:
-                # CNN is confident → use segment label
-                row.append(("segment", label))
+            if use_cnn:
+                coarse_y = min(int(y * scale_y), coarse_H - 1)
+                coarse_x = min(int(x * scale_x), coarse_W - 1)
+
+                label = label_grid[coarse_y][coarse_x]
+                confidence = confidence_grid[coarse_y][coarse_x]
+
+                if confidence >= CONFIDENCE_THRESHOLD and label != "background":
+                    row.append(("segment", label, pixel))
+                else:
+                    row.append(("color", color, pixel))
             else:
-                # CNN not confident → fall back to color
-                # get the center pixel of this patch
-                patch_y = y * 32
-                patch_x = x * 32
-
-                # clamp to image bounds
-                patch_y = min(patch_y, pixels.shape[0] - 1)
-                patch_x = min(patch_x, pixels.shape[1] - 1)
-
-                pixel = pixels[patch_y, patch_x]
-                color = get_color_group(pixel)
-                row.append(("color", color))
+                row.append(("color", color, pixel))
 
         segment_grid.append(row)
 

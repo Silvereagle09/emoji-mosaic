@@ -12,16 +12,10 @@ def load_image(file):
 
 
 def resize_image(image, resolution):
-    """
-    Resize while preserving aspect ratio.
-
-    Resolution should be between 20 and 100.
-    """
-
     width, height = image.size
 
     # Clamp resolution
-    resolution = max(40, min(100, resolution))
+    resolution = max(40, min(300, resolution))  
 
     aspect_ratio = width / height
 

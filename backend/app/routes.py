@@ -90,8 +90,8 @@ async def generate(
     # -----------------------------
 
     image_obj = load_image(image.file)
-
-    resized = resize_image(image_obj, resolution)
+    internal_resolution = int(40 + (resolution - 20) * (300 - 40) / (100 - 20))
+    resized = resize_image(image_obj, internal_resolution)
 
     pixels = image_to_array(resized)
 
