@@ -66,10 +66,13 @@ export default function App() {
     reset()
   }
 
-  const handleAddToCollage = () => {
-    if (!imagePreview) return
+  const handleAddToCollage = (mosaicImage) => {
+    if (!mosaicImage) return
     const id = Date.now().toString()
-    setCollagePhotos((prev) => [...prev.slice(-3), { id, previewUrl: imagePreview }])
+    setCollagePhotos((prev) => [
+      ...prev.slice(-3),
+      { id, previewUrl: mosaicImage }
+    ])
     setTab('collage')
   }
 
@@ -173,7 +176,7 @@ export default function App() {
                   min={10}
                   max={80}
                   onChange={setResolution}
-                  leftImg="/sliders/chunky-cat.png" 
+                  leftImg="/sliders/chunky-cat.png"
                   rightImg="/sliders/detail-cat.png"
                   leftLabel="chunky"
                   rightLabel="detail"
@@ -185,7 +188,7 @@ export default function App() {
                   min={0}
                   max={100}
                   onChange={setChaos}
-                  leftImg="/sliders/calm-cat.png" 
+                  leftImg="/sliders/calm-cat.png"
                   rightImg="/sliders/chaotic-cat.png"
                   leftLabel="calm"
                   rightLabel="chaos"
@@ -226,7 +229,10 @@ export default function App() {
             {activeGrid && (
               <RetroWindow title="RESULT.EXE" color="purple">
                 <div className="p-4">
-                  <EmojiCanvas grid={activeGrid} />
+                  <EmojiCanvas
+                    grid={activeGrid}
+                    onAddToCollage={handleAddToCollage}
+                  />
                 </div>
               </RetroWindow>
             )}

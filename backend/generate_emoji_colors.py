@@ -2,7 +2,7 @@ import json
 import emoji
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
-
+ 
 # ── CONFIG ──────────────────────────────────────────
 FONT_PATH = r"C:\Windows\Fonts\seguiemj.ttf"   # Windows color emoji font
 FONT_SIZE = 96

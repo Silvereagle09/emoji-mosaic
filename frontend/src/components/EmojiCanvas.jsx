@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 const EMOJI_SIZE = 14 // px per emoji tile
 
-export default function EmojiCanvas({ grid, width, height }) {
+export default function EmojiCanvas({ grid, width, height, onAddToCollage }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -36,6 +36,13 @@ export default function EmojiCanvas({ grid, width, height }) {
     link.click()
   }
 
+  const handleAddToCollage = () => {
+    if (!canvasRef.current || !onAddToCollage) return
+
+    const mosaicImage = canvasRef.current.toDataURL('image/png')
+    onAddToCollage(mosaicImage)
+  }
+
   return (
     <div className="flex flex-col items-center gap-4">
       {/* Canvas wrapper with cute border */}
@@ -54,6 +61,7 @@ export default function EmojiCanvas({ grid, width, height }) {
         </button>
 
         <button
+          onClick={handleAddToCollage}
           className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-[#3D2B3D] bg-[#B8E0FF] pixel-font text-[8px] text-[#3D2B3D] cursor-pointer transition-all hover:translate-y-[-2px]"
           style={{ boxShadow: '3px 3px 0px #3D2B3D' }}
         >

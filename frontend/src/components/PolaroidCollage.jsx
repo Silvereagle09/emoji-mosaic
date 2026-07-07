@@ -1,5 +1,6 @@
 // PolaroidCollage.jsx
 // Polaroid-style collage builder — queued emoji photos with captions
+import { toPng } from 'html-to-image'
 
 import { useRef, useState } from 'react'
 
@@ -14,9 +15,33 @@ export default function PolaroidCollage({ photos, onRemove }) {
     setCaptions((prev) => ({ ...prev, [id]: val }))
   }
 
-  const handleExport = () => {
-    // TODO: composite all polaroids onto one canvas and download
-    alert('Export coming soon! 🎀')
+  const handleExport = async () => {
+    if (!collageRef.current || !photos || photos.length === 0) return
+
+    try {
+      const dataUrl = await toPng(collageRef.current, {
+        cacheBust: true,
+        pixelRatio: 2,
+        backgroundColor: '#FFF5EE',
+        filter: (node) => {
+          if (
+            node instanceof HTMLElement &&
+            node.dataset?.exportIgnore === 'true'
+          ) {
+            return false
+          }
+
+          return true
+        },
+      })
+
+      const link = document.createElement('a')
+      link.download = 'emosaic-collage.png'
+      link.href = dataUrl
+      link.click()
+    } catch (error) {
+      console.error('Failed to export collage:', error)
+    }
   }
 
   if (!photos || photos.length === 0) {
@@ -79,6 +104,7 @@ export default function PolaroidCollage({ photos, onRemove }) {
 
               {/* Remove button */}
               <button
+                data-export-ignore="true"
                 onClick={() => onRemove(photo.id)}
                 className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-[#FF6B6B] border border-[#3D2B3D] text-white text-xs flex items-center justify-center cursor-pointer"
               >
