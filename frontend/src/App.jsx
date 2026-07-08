@@ -22,14 +22,6 @@ const THEME_BG = {
   y2k:    { bg: '#FFFCE8', line: '#F0E880' },
 }
 
-// Demo grid — remove when backend is connected
-const DEMO_GRID = Array.from({ length: 30 }, (_, row) =>
-  Array.from({ length: 25 }, (_, col) => {
-    const opts = ['🌸', '🍡', '🎀', '🫧', '🐣', '🌷', '🍓', '🐱', '✨', '💕']
-    return opts[Math.floor(Math.random() * opts.length)]
-  })
-)
-
 export default function App() {
   const [tab, setTab] = useState('emojify')
   const [theme, setTheme] = useState('pastel')
@@ -39,7 +31,7 @@ export default function App() {
   const [imagePreview, setImagePreview] = useState(null)
   const [showWebcam, setShowWebcam] = useState(false)
   const [collagePhotos, setCollagePhotos] = useState([])
-  const [showDemo, setShowDemo] = useState(false)
+  
 
   const { emojify, loading, progress, result, error, reset } = useEmojify()
 
@@ -47,7 +39,6 @@ export default function App() {
     setImagePreview(url)
     setImageFile(file)
     reset()
-    setShowDemo(false)
   }
 
   const handleWebcamCapture = (url, blob) => {
@@ -61,11 +52,6 @@ export default function App() {
     emojify({ file: imageFile, theme, resolution, chaos })
   }
 
-  const handleDemo = () => {
-    setShowDemo(true)
-    reset()
-  }
-
   const handleAddToCollage = (mosaicImage) => {
     if (!mosaicImage) return
     const id = Date.now().toString()
@@ -76,7 +62,7 @@ export default function App() {
     setTab('collage')
   }
 
-  const activeGrid = result || (showDemo ? DEMO_GRID : null)
+  const activeGrid = result
 
   const themeBg = THEME_BG[theme] || THEME_BG.pastel
   const bgStyle = {
@@ -150,7 +136,7 @@ export default function App() {
                         className="w-full h-44 object-cover"
                       />
                       <button
-                        onClick={() => { setImagePreview(null); setImageFile(null); reset(); setShowDemo(false) }}
+                        onClick={() => { setImagePreview(null); setImageFile(null); reset() }}
                         className="absolute top-2 right-2 w-6 h-6 rounded-full bg-[#FF6B6B] border border-[#3D2B3D] text-white text-xs flex items-center justify-center cursor-pointer"
                       >
                         ×
@@ -207,13 +193,7 @@ export default function App() {
               >
                 EMOJIFY!
               </button>
-              <button
-                onClick={handleDemo}
-                className="px-4 py-3 rounded-2xl border-2 border-[#E0D0D0] bg-white pixel-font text-[9px] text-[#B0A0A0] cursor-pointer transition-all hover:translate-y-[-1px]"
-                style={{ boxShadow: '3px 3px 0px #E0D0D0' }}
-              >
-                DEMO
-              </button>
+        
             </div>
 
             {/* Error */}
