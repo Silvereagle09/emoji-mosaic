@@ -115,26 +115,13 @@ export default function PolaroidCollage({ photos, onRemove }) {
         </div>
       </div>
 
-      {/* Floating sticker decorations */}
-      <div className="flex gap-2 justify-center text-xl">
-        {['✨', '🌸', '⭐', '🎀', '💫'].map((s, i) => (
-          <span
-            key={i}
-            className="sticker-float cursor-default select-none"
-            style={{ animationDelay: `${i * 0.3}s`, '--rotate': `${ROTATIONS[i]}deg` }}
-          >
-            {s}
-          </span>
-        ))}
-      </div>
-
       {/* Export button */}
       <button
         onClick={handleExport}
         className="w-full py-3 rounded-2xl border-2 border-[#3D2B3D] bg-[#FFB7C5] pixel-font text-[8px] text-[#3D2B3D] cursor-pointer transition-all hover:translate-y-[-2px]"
         style={{ boxShadow: '3px 3px 0px #3D2B3D' }}
       >
-        📸 DOWNLOAD COLLAGE
+        DOWNLOAD COLLAGE
       </button>
     </div>
   )
