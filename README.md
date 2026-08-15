@@ -1,10 +1,10 @@
-# 🌸 Emosaic
+🌸 **Emosaic**
 
 > Transform any photo into a beautiful emoji mosaic using AI-powered semantic segmentation and perceptual color matching.
 
 ---
 
-## What is Emosaic?
+**What is Emosaic?**
 
 Emosaic is a full-stack AI web app that converts uploaded photos into emoji mosaics. It uses a custom-trained **PatchCNN** to semantically understand image regions (hair, skin, clothes, background) and maps each region to carefully curated, theme-appropriate emojis — picking the best match using **perceptual LAB color distance**.
 
@@ -12,7 +12,7 @@ Emosaic is a full-stack AI web app that converts uploaded photos into emoji mosa
 
 ---
 
-## Themes
+**Themes**
 
 Emosaic comes with four hand-curated emoji themes:
 
@@ -25,7 +25,7 @@ Emosaic comes with four hand-curated emoji themes:
 
 ---
 
-## Architecture
+**Architecture**
 
 ```
                 Upload Photo
@@ -61,7 +61,7 @@ Emosaic comes with four hand-curated emoji themes:
 
 ---
 
-## PatchCNN
+**PatchCNN**
 
 Custom lightweight CNN trained on **32×32 image patches**, classifying into 7 semantic classes:
 
@@ -88,7 +88,7 @@ Linear(256→7)
 
 ---
 
-## Model Performance
+**Model Performance**
 
 Trained on a combined dataset of **ADE20K** + **Human Parsing Dataset (HuggingFace)** — 33,859 balanced patches across 7 classes.
 
@@ -112,7 +112,7 @@ Trained on a combined dataset of **ADE20K** + **Human Parsing Dataset (HuggingFa
 
 ---
 
-## How Color Matching Works
+**How Color Matching Works**
 
 For every pixel cell:
 
@@ -124,7 +124,7 @@ This is done in a **NumPy-vectorized batch operation** — all cells sharing the
 
 ---
 
-## Controls
+**Controls**
 
 | Control | Range | Effect |
 |---|---|---|
@@ -133,9 +133,9 @@ This is done in a **NumPy-vectorized batch operation** — all cells sharing the
 
 ---
 
-## Running Locally
+**Running Locally**
 
-### Backend
+**Backend**
 
 ```bash
 cd backend
@@ -150,7 +150,7 @@ uvicorn app.main:app --reload
 
 API available at `http://localhost:8000`
 
-### Frontend
+**Frontend**
 
 ```bash
 cd frontend
@@ -162,7 +162,7 @@ Frontend at `http://localhost:5174`
 
 ---
 
-## Project Structure
+**Project Structure**
 
 ```
 emoji-mosaic/
@@ -191,7 +191,7 @@ emoji-mosaic/
 
 ---
 
-## Tech Stack
+**Tech Stack**
 
 | Layer | Tech |
 |---|---|
@@ -203,7 +203,7 @@ emoji-mosaic/
 
 ---
 
-## API
+**API**
 
 ### `POST /generate`
 
