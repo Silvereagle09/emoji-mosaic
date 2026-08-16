@@ -8,7 +8,7 @@
 
 Emosaic is a full-stack AI web app that converts uploaded photos into emoji mosaics. It uses a custom-trained **PatchCNN** to semantically understand image regions (hair, skin, clothes, background) and maps each region to carefully curated, theme-appropriate emojis picking the best match using **perceptual LAB color distance**.
 
-<img src="assets/after.png" width="600" alt="Emosaic img"/>
+<img src="assets/after.png" width="300" alt="Emosaic img"/>
 
 ---
 
