@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+pillow
+numpy
+torch==2.3.0+cpu
+torchvision==0.18.0+cpu
+emoji
+gradio
+--extra-index-url https://download.pytorch.org/whl/cpu
