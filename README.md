@@ -1,4 +1,4 @@
-🌸 **Emosaic**
+# 🌸 **Emosaic**
 
 > Transform any photo into a beautiful emoji mosaic using AI semantic segmentation and perceptual color matching.
 
@@ -25,7 +25,7 @@ Emosaic comes with four hand-curated emoji themes:
 
 ---
 
-**Architecture**
+## **Architecture**
 
 ```
                 Upload Photo
@@ -203,7 +203,7 @@ emoji-mosaic/
 
 **API**
 
-### `POST /generate`
+`POST /generate`
 
 | Field | Type | Description |
 |---|---|---|
