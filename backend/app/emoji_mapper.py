@@ -4,7 +4,7 @@ import numpy as np
 
 from app.themes import THEMES
 
-with open("emoji_colors.json", "r", encoding="utf-8") as f:
+with open("data/emoji_colors.json", "r", encoding="utf-8") as f:
     _raw_colors = json.load(f)
 
 EMOJI_COLOR_LOOKUP = {
